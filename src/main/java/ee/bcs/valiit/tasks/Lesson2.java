@@ -1,15 +1,28 @@
 package ee.bcs.valiit.tasks;
 
+import java.util.Arrays;
+import java.util.Scanner;
+
 public class Lesson2 {
 
     public static void main(String[] args) {
         // TODO siia saab kirjutada koodi testimiseks
+        // multiplyTable(3,3);
+        //System.out.println(Arrays.toString(reverseArray(new int[]{6, 2, 7, 3, 1})));
+        //System.out.println(sequence3n(1, 10));
+        //System.out.println(reverseArray(int[5]));
     }
 
     // TODO loe funktsiooni sisendiks on täisarvude massiiv
     // TODO tagasta massiiv mille elemendid on vastupidises järiekorras
     public static int[] reverseArray(int[] inputArray) {
-        return new int[1];
+        int kuiSuurArray = inputArray.length;
+        int[] arvud = new int[kuiSuurArray];
+        for (int i = kuiSuurArray; i > 0; i--) {
+            arvud[i - 1] = inputArray[kuiSuurArray - i];
+        }
+        System.out.println(Arrays.toString(arvud));
+        return arvud;
     }
 
     // TODO tagasta massiiv mis sisaldab n esimest paaris arvu
@@ -17,22 +30,43 @@ public class Lesson2 {
     // Sisend 5
     // Väljund 2 4 6 8 10
     public static int[] evenNumbers(int n) {
-        return new int[1];
+        // int n = 5;
+        int[] arv = new int[n];
+        for (int i = 0; i < n; i++) {
+            arv[i] = (i + 1) * 2;
+        }
+        return arv;
     }
 
     // TODO, leia massiivi kõige väiksem element
-    public static int min(int[] x){
-        return 0;
+    public static int min(int[] x) {
+        int minArv = x[0];
+        for (int i = 1; i < x.length; i++) {
+            if (x[i] < minArv) {
+                minArv = x[i];
+            }
+        }
+        return minArv;
     }
 
     // TODO, leia massiivi kõige suurem element
-    public static int max(int[] x){
-        return 0;
+    public static int max(int[] x) {
+        int maxArv = x[0];
+        for (int i = 1; i < x.length; i++) {
+            if (x[i] > maxArv) {
+                maxArv = x[i];
+            }
+        }
+        return maxArv;
     }
 
     // TODO, leia massiivi kõigi elementide summa
-    public static int sum(int[] x){
-        return 0;
+    public static int sum(int[] x) {
+        int sumArv = x[0];
+        for (int i = 1; i < x.length; i++) {
+            sumArv += x[i];
+        }
+        return sumArv;
     }
 
     // TODO trüki välja korrutustabel mis on x ühikut lai ja y ühikut kõrge
@@ -49,17 +83,40 @@ public class Lesson2 {
     // TODO 5 võrdle ridu. Kas on mingi seaduspärasus ridade vahel,
     // mis on ja mis võiks olla. Äkki tuleb mõni idee
     public static void multiplyTable(int x, int y) {
+        x = 3;
+        y = 3;
+        for (int i = 1; i <= x; i++) {
+            for (int j = 1; j <= y; j++) {
+                System.out.print(j * i + " ");
+            }
+            System.out.println();
+        }
+        return;
 
     }
 
     // TODO
-    // Fibonacci jada on fib(n) = fib(n-1) + fib(n-2);
+    // Fibonacci jada on fib(n) = fib(n-1) + fib(n-2); (((((NESTED LOOPS KASUTADA)))))
     // 0, 1, 1, 2, 3, 5, 8, 13, 21
     // Tagasta fibonacci jada n element. Võid eeldada, et n >= 0
     public static int fibonacci(int n) {
+        int a = 0;
+        int b = 1;
+        int fib = 0;
 
-        return 0;
+        for (int i = 0; i < n; i++) {
+            a = b;
+            b = fib;
+            fib = (a + b);
+        }
+        return fib;
     }
+    // 0 1 | 0 + 1 = 1
+    // 1 1 | 1 + 1 = 2
+    // 1 2 | 1 + 2 = 3
+    // 2 3 | 2 + 3 = 5
+    // 3 5 | 3 + 5 = 8
+    // ja panna tsüklisse
 
     // TODO
     // Kujutame ette numbrite jada, kus juhul kui number on paaris arv siis me jagame selle 2-ga
@@ -77,8 +134,40 @@ public class Lesson2 {
     // Näiteks sisendi 10 ja 20 puhul on vastus 20
 
     public static int sequence3n(int x, int y) {
-        return 0;
+        int kokku = 0;
+        for (int i = x; i <= y; i++) {
+            int kordused = 1;
+            int algArv = i;
+            while (algArv > 1) {
+                if (algArv % 2 == 0) {
+                    algArv = algArv / 2;
+                } else {
+                    algArv = (algArv * 3) + 1;
+                }
+                kordused++;
+            }
+            if (kordused > kokku) {
+                kokku = kordused;
+            }
+        }
+        System.out.println(kokku);
+        return kokku;
     }
-
-
 }
+//    int kordused = 1;
+//        while (x > 1) {
+//                x = nextElement(x);
+//                kordused++;
+//                }
+//                return kordused;
+//        if (x % 2 == 0) {
+//                x = x / 2;
+//                } else {
+//                x = (x * 3) + 1;
+//                }
+//                return x;
+//int algArv = 0;
+//        for (int i = x; i < y; i++) {
+//        int kokku = getSeqLength(i);
+//        if (kokku > algArv){
+//        algArv = kokku;

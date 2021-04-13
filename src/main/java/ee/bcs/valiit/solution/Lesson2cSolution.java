@@ -3,7 +3,7 @@ package ee.bcs.valiit.solution;
 public class Lesson2cSolution {
 
     public static void main(String[] args) {
-
+        System.out.println(getSeqLength(1));
     }
 
     // TODO
