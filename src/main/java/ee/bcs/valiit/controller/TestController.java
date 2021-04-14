@@ -3,13 +3,16 @@ package ee.bcs.valiit.controller;
 import ee.bcs.valiit.tasks.Lesson1;
 import ee.bcs.valiit.tasks.Lesson2;
 import ee.bcs.valiit.tasks.Lesson3;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.awt.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class TestController {
+    public List<DTO> listTootajad = new ArrayList<>();
 
     @GetMapping("sample/hello-world/{nameInUrl}")
     public String helloWorld(@PathVariable("nameInUrl") String name,
@@ -105,5 +108,27 @@ public class TestController {
     @GetMapping("morese/{text}")
     public String morseCode(@PathVariable("text") String text) {
         return Lesson3.morseCode(text);
+    }
+
+    @GetMapping("tootajad")
+    public List<DTO> tootajad() {
+        return listTootajad;
+    }
+    @GetMapping("tootajad/{x}")
+    public DTO otsi(@PathVariable("x") int x) {
+        return listTootajad.get(x);
+    }
+    @PostMapping("tootajad")
+    public void tootajad(@RequestBody DTO tootajad) {
+        listTootajad.add(tootajad);
+    }
+    @PutMapping("tootajad/{x}")
+    public DTO kirjutaYle(@PathVariable("x")  int x, @RequestBody DTO tootajad) {
+        return (listTootajad.set(x, tootajad));
+    }
+
+    @DeleteMapping("tootajad/{x}")
+    public DTO kustuta(@PathVariable("x") int x) {
+        return listTootajad.remove(x);
     }
 }
