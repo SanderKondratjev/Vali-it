@@ -14,14 +14,14 @@ import java.util.List;
 public class TestController {
     public List<DTO> listTootajad = new ArrayList<>();
 
-    @GetMapping("sample/hello-world/{nameInUrl}")
+    @GetMapping("hello-world/{nameInUrl}")
     public String helloWorld(@PathVariable("nameInUrl") String name,
                              @RequestParam("action") String a,
                              @RequestParam("action2") String b) {
         return a + " " + name + " " + b;
     }
 
-    @GetMapping("sample/fib/{n}")
+    @GetMapping("fib/{n}")
     public int fib(@PathVariable("n") int n) {
         return Lesson2.fibonacci(n);
     }
