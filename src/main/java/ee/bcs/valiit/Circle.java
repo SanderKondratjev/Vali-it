@@ -9,12 +9,13 @@ public class Circle extends Shape {
     }
 
     @Override
-    public double circumference(){
+    public double circumference() {
         return 2 * Math.PI * radius;
     }
 
     @Override
-    public double area(){
+    public double area() {
         return Math.PI * Math.pow(radius, 2);
     }
+}
 }
