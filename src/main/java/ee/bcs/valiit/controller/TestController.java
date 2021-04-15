@@ -120,6 +120,7 @@ public class TestController {
     }
     @PostMapping("tootajad")
     public void tootajad(@RequestBody DTO tootajad) {
+
         listTootajad.add(tootajad);
     }
     @PutMapping("tootajad/{x}")
