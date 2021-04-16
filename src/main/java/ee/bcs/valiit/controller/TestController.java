@@ -132,4 +132,11 @@ public class TestController {
     public DTO kustuta(@PathVariable("x") int x) {
         return listTootajad.remove(x);
     }
+
+    @GetMapping("testing/3/{c}")
+    public int miingi(@RequestParam("a") int a,
+                      @RequestParam("b") int b,
+                      @PathVariable("c") int c){
+       return a - b;
+    }
 }

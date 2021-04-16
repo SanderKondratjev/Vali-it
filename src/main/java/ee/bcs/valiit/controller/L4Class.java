@@ -14,11 +14,27 @@ public class L4Class {
         this.accountNr = accountNr;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Double getBalance() {
         return balance;
     }
 
     public void setBalance(Double balance) {
         this.balance = balance;
+    }
+
+    public boolean isLocked() {
+        return locked;
+    }
+
+    public void setLocked(boolean locked) {
+        this.locked = locked;
     }
 }
