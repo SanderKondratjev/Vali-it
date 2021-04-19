@@ -5,8 +5,6 @@ import ee.bcs.valiit.tasks.Lesson2;
 import ee.bcs.valiit.tasks.Lesson3;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -114,17 +112,20 @@ public class TestController {
     public List<DTO> tootajad() {
         return listTootajad;
     }
+
     @GetMapping("tootajad/{x}")
     public DTO otsi(@PathVariable("x") int x) {
         return listTootajad.get(x);
     }
+
     @PostMapping("tootajad")
     public void tootajad(@RequestBody DTO tootajad) {
 
         listTootajad.add(tootajad);
     }
+
     @PutMapping("tootajad/{x}")
-    public DTO kirjutaYle(@PathVariable("x")  int x, @RequestBody DTO tootajad) {
+    public DTO kirjutaYle(@PathVariable("x") int x, @RequestBody DTO tootajad) {
         return (listTootajad.set(x, tootajad));
     }
 
@@ -136,7 +137,25 @@ public class TestController {
     @GetMapping("testing/3/{c}")
     public int miingi(@RequestParam("a") int a,
                       @RequestParam("b") int b,
-                      @PathVariable("c") int c){
-       return a - b;
+                      @PathVariable("c") int c) {
+        return a - b;
     }
+
+    @GetMapping("katsetamiseks/a/{b}/b/{a}")
+    public void test(@RequestParam("c") int a,
+                     @PathVariable("a") int b,
+                     @RequestParam("a") int c,
+                     @PathVariable("b") int d) {
+
+    }
+
+    @GetMapping("igaksjuhuks/a/{b}")
+    public String mingimuu(@RequestParam("c") int a,
+                           @PathVariable("a") int b) {
+        return "Path a" + b + "Req c" + a;
+    }
+//                      @RequestParam("a") int c,
+//                      @PathVariable("b") int d) {
+
+
 }

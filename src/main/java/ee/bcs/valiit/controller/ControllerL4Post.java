@@ -24,7 +24,7 @@ public class ControllerL4Post {
     }
 
     @PostMapping("lesson40/1") // 1. Loo konto
-    public void looKonto(@RequestBody L4Class request) {
+    public void looKonto(@RequestBody BankManagerClass request) {
         accountBalanceMap.put(request.getAccountNr(), request.getBalance());
     }
 
@@ -36,14 +36,14 @@ public class ControllerL4Post {
 
     @PutMapping("lesson40/3/{accountNr}") //3. Lae raha
     public void laeRaha(@PathVariable("accountNr") String accountNr,
-                        @RequestBody L4Class request) {
+                        @RequestBody BankManagerClass request) {
         Double balance = accountBalanceMap.get(accountNr) + request.getBalance();
         accountBalanceMap.put(accountNr, balance);
     }
 
     @PutMapping("lesson40/4/{accountNr}") //4. Maha raha
     public void mahaRaha(@PathVariable("accountNr") String accountNr,
-                         @RequestBody L4Class request) {
+                         @RequestBody BankManagerClass request) {
         Double balance = accountBalanceMap.get(accountNr) - request.getBalance();
         accountBalanceMap.put(accountNr, balance);
     }
@@ -51,7 +51,7 @@ public class ControllerL4Post {
     @PutMapping("lesson40/5/{accountNr}/{accountNr2}")
     public void transfer(@PathVariable("accountNr") String accountNr,
                          @PathVariable("accountNr2") String accountNr2,
-                         @RequestBody L4Class request) {
+                         @RequestBody BankManagerClass request) {
         Double balance = accountBalanceMap.get(accountNr) - request.getBalance();
         Double balance2 = accountBalanceMap.get(accountNr2) + request.getBalance();
         accountBalanceMap.put(accountNr, balance);

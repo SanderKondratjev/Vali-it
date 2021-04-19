@@ -1,6 +1,6 @@
 package ee.bcs.valiit.tasks;
 
-import ee.bcs.valiit.controller.L4Class;
+import ee.bcs.valiit.controller.BankManagerClass;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -21,7 +21,7 @@ public class Lesson5 {
     // 4)
     // juhul kui konto on lukustatud ei tohi saada sellele kontole raha juurde kande ega kontolt raha ära võtta
     // ehk siis withdrawMoney, depositMoney ja transferMoney teenused ei tohi töötada
-    public HashMap<String, L4Class> accountBalanceMap = new HashMap<>();
+    public HashMap<String, BankManagerClass> accountBalanceMap = new HashMap<>();
 
     public static void main(String[] args) {
 
@@ -41,7 +41,7 @@ public class Lesson5 {
     }
 
     @PostMapping("lesson5/1") // 1. Loo konto
-    public void looKonto(@RequestBody L4Class request) {
+    public void looKonto(@RequestBody BankManagerClass request) {
         accountBalanceMap.put(request.getAccountNr(), request);
     }
 
@@ -52,7 +52,7 @@ public class Lesson5 {
 
     @PutMapping("lesson5/3/{accountNr}") //3. Lae raha
     public void laeRaha(@PathVariable("accountNr") String accountNr,
-                        @RequestBody L4Class request) {
+                        @RequestBody BankManagerClass request) {
         if (accountBalanceMap.get(accountNr).isLocked() == false) {
             Double balance = accountBalanceMap.get(accountNr).getBalance() + request.getBalance();
             accountBalanceMap.get(accountNr).setBalance(balance);
@@ -63,7 +63,7 @@ public class Lesson5 {
 
     @PutMapping("lesson5/4/{accountNr}") //4. Maha raha
     public void mahaRaha(@PathVariable("accountNr") String accountNr,
-                         @RequestBody L4Class request) {
+                         @RequestBody BankManagerClass request) {
         if (accountBalanceMap.get(accountNr).isLocked() == false) {
             Double balance = accountBalanceMap.get(accountNr).getBalance() - request.getBalance();
             accountBalanceMap.get(accountNr).setBalance(balance);
@@ -75,7 +75,7 @@ public class Lesson5 {
     @PutMapping("lesson5/5/{accountNr}/{accountNr2}")
     public void transfer(@PathVariable("accountNr") String accountNr,
                          @PathVariable("accountNr2") String accountNr2,
-                         @RequestBody L4Class request) {
+                         @RequestBody BankManagerClass request) {
         if (accountBalanceMap.get(accountNr).isLocked() == false &&
                 accountBalanceMap.get(accountNr2).isLocked() == false) {
             Double balance = accountBalanceMap.get(accountNr).getBalance() - request.getBalance();
@@ -89,7 +89,7 @@ public class Lesson5 {
 
     @PutMapping("lesson5/6/{accountNr}") //6. Konto lukku
     public void lukku(@PathVariable("accountNr") String accountNr,
-                      @RequestBody L4Class request) {
+                      @RequestBody BankManagerClass request) {
         if (accountBalanceMap.get(accountNr).isLocked() == false) {
             accountBalanceMap.get(accountNr).setLocked(true);
         } else {
@@ -98,7 +98,7 @@ public class Lesson5 {
     }
     @PutMapping("lesson5/7/{accountNr}") //7. Konto lukku
     public void vabaks(@PathVariable("accountNr") String accountNr,
-                      @RequestBody L4Class request) {
+                      @RequestBody BankManagerClass request) {
         if (accountBalanceMap.get(accountNr).isLocked() == true) {
             accountBalanceMap.get(accountNr).setLocked(false);
         } else {
