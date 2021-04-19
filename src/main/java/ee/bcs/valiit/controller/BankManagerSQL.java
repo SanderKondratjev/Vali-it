@@ -1,5 +1,6 @@
 package ee.bcs.valiit.controller;
 
+import ee.bcs.valiit.service.BankManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,9 @@ import java.util.Map;
 public class BankManagerSQL {
 
     public HashMap<String, BankManagerClass> accountBalanceMap = new HashMap<>();
+
+    @Autowired
+    private BankManagerService bankManagerService;
 
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
@@ -35,24 +39,12 @@ public class BankManagerSQL {
 
     @PostMapping("banksql/1") // 1. Loo konto
     public void looKonto(@RequestBody BankManagerClass request) {
-        String sql = "INSERT INTO customers(account_nr, first_name, last_name, balance, email) " +
-                "VALUES(:dbAccountNr, :dbFirstName, :dbLastName, :dbBalance, :dbEmail)";
-        Map<String, Object> paraMap = new HashMap<>();
-        paraMap.put("dbAccountNr", request.getAccountNr());
-        paraMap.put("dbFirstName", request.getFirstName());
-        paraMap.put("dbLastName", request.getLastName());
-        paraMap.put("dbBalance", request.getBalance());
-        paraMap.put("dbEmail", request.getEmail());
-        jdbcTemplate.update(sql, paraMap);
+        bankManagerService.looKonto(request);
     }
 
     @GetMapping("banksql/2/{accountNr}") //2. Konto saldo
     public String saldo(@PathVariable("accountNr") String accountNr) {
-        String sql = "SELECT balance FROM customers WHERE account_nr = :dbAccountNr";
-        Map<String, Object> paraMap = new HashMap<>();
-        paraMap.put("dbAccountNr", accountNr);
-        Double balance = jdbcTemplate.queryForObject(sql, paraMap, Double.class);
-        return "Konto saldo on " + balance + " EUR.";
+        return bankManagerService.saldo(accountNr);
     }
 
     @PutMapping("banksql/3/{accountNr}") //3. Lae raha
