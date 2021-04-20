@@ -1,4 +1,4 @@
-package ee.bcs.valiit.controller;
+package ee.bcs.valiit.bankManager;
 
 public class BankManagerClass {
     public String firstName;

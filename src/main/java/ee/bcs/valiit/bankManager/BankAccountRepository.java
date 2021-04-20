@@ -1,6 +1,5 @@
-package ee.bcs.valiit.repository;
+package ee.bcs.valiit.bankManager;
 
-import ee.bcs.valiit.controller.BankManagerClass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -26,10 +25,19 @@ public class BankAccountRepository {
         jdbcTemplate.update(sql, paraMap);
     }
 
-    public Double saldo(String accountNr) {
+    public Double saaSaldo(String accountNr) {
         String sql = "SELECT balance FROM customers WHERE account_nr = :dbAccountNr";
         Map<String, Object> paraMap = new HashMap<>();
         paraMap.put("dbAccountNr", accountNr);
         return jdbcTemplate.queryForObject(sql, paraMap, Double.class);
     }
+
+    public void uuendaSaldo(String accountNr, Double request) {
+        String sql = "UPDATE customers SET balance = :balance WHERE account_nr = :dbAccountNr";
+        Map<String, Object> paraMap = new HashMap<>();
+        paraMap.put("balance", request);
+        paraMap.put("dbAccountNr", accountNr);
+        jdbcTemplate.update(sql, paraMap);
+    }
 }
+

@@ -1,6 +1,6 @@
 package ee.bcs.valiit.tasks;
 
-import ee.bcs.valiit.controller.BankManagerClass;
+import ee.bcs.valiit.bankManager.BankManagerClass;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
