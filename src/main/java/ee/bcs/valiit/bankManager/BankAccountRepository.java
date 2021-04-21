@@ -14,12 +14,11 @@ public class BankAccountRepository {
     private NamedParameterJdbcTemplate jdbcTemplate;
 
     public void looKonto(BankManagerClass request) {
-        String sql = "INSERT INTO customers(account_nr, first_name, last_name, balance, email) " +
-                "VALUES(:dbAccountNr, :dbFirstName, :dbLastName, :dbBalance, :dbEmail)";
+        String sql = "INSERT INTO customers(account_nr, name, balance, email) " +
+                "VALUES(:dbAccountNr, :dbName, :dbBalance, :dbEmail)";
         Map<String, Object> paraMap = new HashMap<>();
         paraMap.put("dbAccountNr", request.getAccountNr());
-        paraMap.put("dbFirstName", request.getFirstName());
-        paraMap.put("dbLastName", request.getLastName());
+        paraMap.put("dbName", request.getName());
         paraMap.put("dbBalance", request.getBalance());
         paraMap.put("dbEmail", request.getEmail());
         jdbcTemplate.update(sql, paraMap);

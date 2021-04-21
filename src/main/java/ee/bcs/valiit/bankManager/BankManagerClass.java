@@ -1,29 +1,11 @@
 package ee.bcs.valiit.bankManager;
 
 public class BankManagerClass {
-    public String firstName;
-    public String lastName;
     public String email;
     private String accountNr;
     private String name;
     private Double balance;
     private boolean locked;
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
 
     public String getEmail() {
         return email;
