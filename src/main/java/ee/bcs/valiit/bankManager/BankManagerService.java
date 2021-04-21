@@ -1,10 +1,8 @@
 package ee.bcs.valiit.bankManager;
 
+import ee.bcs.valiit.solution.exception.SampleApplicationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Service
 public class BankManagerService {
@@ -21,29 +19,33 @@ public class BankManagerService {
     }
 
     public void laeRaha(String accountNr, BankManagerClass request) {
-        if (request.getBalance() > 0) {
-            Double balance = bankAccountRepository.saaSaldo(accountNr);
-            balance += request.getBalance();
-            bankAccountRepository.uuendaSaldo(accountNr, balance);
+        if (request.getBalance() < 0) {
+            throw new SampleApplicationException("Summa peab olema positiivne.");
         }
+        Double balance = bankAccountRepository.saaSaldo(accountNr);
+        balance += request.getBalance();
+        bankAccountRepository.uuendaSaldo(accountNr, balance);
     }
 
     public void mahaRaha(String accountNr, BankManagerClass request) {
-        if (request.getBalance() > 0) {
-            Double balance = bankAccountRepository.saaSaldo(accountNr);
-            balance -= request.getBalance();
-            bankAccountRepository.uuendaSaldo(accountNr, balance);
+        if (request.getBalance() < 0) {
+            throw new SampleApplicationException("Summa peab olema positiivne.");
         }
+        Double balance = bankAccountRepository.saaSaldo(accountNr);
+        balance -= request.getBalance();
+        bankAccountRepository.uuendaSaldo(accountNr, balance);
+
     }
 
     public void transfer(String accountNr, String accountNr2, BankManagerClass request) {
-        if (request.getBalance() > 0) {
-            Double balance = bankAccountRepository.saaSaldo(accountNr2);
-            balance += request.getBalance();
-            Double balance2 = bankAccountRepository.saaSaldo(accountNr);
-            balance2 -= request.getBalance();
-            bankAccountRepository.uuendaSaldo(accountNr, balance2);
-            bankAccountRepository.uuendaSaldo(accountNr2, balance);
+        if (request.getBalance() < 0) {
+            throw new SampleApplicationException("Summa peab olema positiivne.");
         }
+        Double balance = bankAccountRepository.saaSaldo(accountNr2);
+        balance += request.getBalance();
+        Double balance2 = bankAccountRepository.saaSaldo(accountNr);
+        balance2 -= request.getBalance();
+        bankAccountRepository.uuendaSaldo(accountNr, balance2);
+        bankAccountRepository.uuendaSaldo(accountNr2, balance);
     }
 }

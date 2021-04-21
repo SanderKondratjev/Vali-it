@@ -19,7 +19,7 @@ public class BankAccountRepository {
         Map<String, Object> paraMap = new HashMap<>();
         paraMap.put("dbAccountNr", request.getAccountNr());
         paraMap.put("dbName", request.getName());
-        paraMap.put("dbBalance", request.getBalance());
+        paraMap.put("dbBalance", 0.0);
         paraMap.put("dbEmail", request.getEmail());
         jdbcTemplate.update(sql, paraMap);
     }
