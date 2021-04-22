@@ -149,13 +149,13 @@ public class TestController {
 
     }
 
-    @GetMapping("igaksjuhuks/a/{b}")
-    public String mingimuu(@RequestParam("c") int a,
-                           @PathVariable("a") int b) {
-        return "Path a" + b + "Req c" + a;
+    @GetMapping("igaksjuhuks/{a}/{b}")
+    public String igaks(@PathVariable("b") String a,
+                      @PathVariable("a") int c,
+                      @RequestParam("a") String b) {
+        return "Path b = "+ a+ " Path a = " + c + "Req a = " +b;
+
     }
-//                      @RequestParam("a") int c,
-//                      @PathVariable("b") int d) {
 
 
 }
