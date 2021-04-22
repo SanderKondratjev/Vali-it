@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class BankManagerService {
     @Autowired
+    private CustomersRepository customersRepository;
+    @Autowired
     private BankAccountRepository bankAccountRepository;
 
     public void looKonto(BankManagerClass request) {
@@ -14,8 +16,10 @@ public class BankManagerService {
     }
 
     public String saldo(String accountNr) {
-        Double balance = bankAccountRepository.saaSaldo(accountNr);
-        return "Konto saldo on " + balance + " EUR.";
+        Customers account = customersRepository.getOne(accountNr);
+        return  "Konto saldo on " + account.getBalance() + " EUR.";
+//        Double balance = bankAccountRepository.saaSaldo(accountNr);
+//        return "Konto saldo on " + balance + " EUR.";
     }
 
     public void laeRaha(String accountNr, BankManagerClass request) {
