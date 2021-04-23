@@ -18,6 +18,9 @@
             <column name="balance" type="numeric"/>
         </createTable>
     </changeSet>
+    <changeSet id="2021-04-23" author="Sander">
+        <dropColumn tableName="customers" columnName="id"/>
+    </changeSet>
 </databaseChangeLog>
 <!--        <createTable tableName="book">-->
 <!--            <column name="id" type="int" autoIncrement="true">-->
