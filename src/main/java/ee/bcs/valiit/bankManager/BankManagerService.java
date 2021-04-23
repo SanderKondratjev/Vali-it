@@ -18,38 +18,39 @@ public class BankManagerService {
     public String saldo(String accountNr) {
         Customers account = customersRepository.getOne(accountNr);
         return  "Konto saldo on " + account.getBalance() + " EUR.";
-//        Double balance = bankAccountRepository.saaSaldo(accountNr);
-//        return "Konto saldo on " + balance + " EUR.";
     }
 
     public void laeRaha(String accountNr, BankManagerClass request) {
         if (request.getBalance() < 0) {
             throw new SampleApplicationException("Summa peab olema positiivne.");
         }
-        Double balance = bankAccountRepository.saaSaldo(accountNr);
-        balance += request.getBalance();
-        bankAccountRepository.uuendaSaldo(accountNr, balance);
+        Customers account = customersRepository.getOne(accountNr);
+        Double balance = account.getBalance() + request.getBalance();
+        account.setBalance(balance);
+        customersRepository.save(account);
     }
 
     public void mahaRaha(String accountNr, BankManagerClass request) {
         if (request.getBalance() < 0) {
             throw new SampleApplicationException("Summa peab olema positiivne.");
         }
-        Double balance = bankAccountRepository.saaSaldo(accountNr);
-        balance -= request.getBalance();
-        bankAccountRepository.uuendaSaldo(accountNr, balance);
-
+        Customers account = customersRepository.getOne(accountNr);
+        Double balance = account.getBalance() - request.getBalance();
+        account.setBalance(balance);
+        customersRepository.save(account);
     }
 
     public void transfer(String accountNr, String accountNr2, BankManagerClass request) {
         if (request.getBalance() < 0) {
             throw new SampleApplicationException("Summa peab olema positiivne.");
         }
-        Double balance = bankAccountRepository.saaSaldo(accountNr2);
-        balance += request.getBalance();
-        Double balance2 = bankAccountRepository.saaSaldo(accountNr);
-        balance2 -= request.getBalance();
-        bankAccountRepository.uuendaSaldo(accountNr, balance2);
-        bankAccountRepository.uuendaSaldo(accountNr2, balance);
+        Customers account = customersRepository.getOne(accountNr);
+        Customers account2 = customersRepository.getOne(accountNr2);
+        Double balance = account.getBalance() - request.getBalance();
+        Double balance2 = account2.getBalance() + request.getBalance();
+        account.setBalance(balance);
+        account2.setBalance(balance2);
+        customersRepository.save(account);
+        customersRepository.save(account2);
     }
 }

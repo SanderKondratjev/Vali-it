@@ -6,20 +6,14 @@
 
     <changeSet id="2020-04-21 customers" author="Sander">
         <createTable tableName="customers">
-            <column name="id" type="int" autoIncrement="true">
-                <constraints primaryKey="true"/>
-            </column>
             <column name="account_nr" type="text">
-                <constraints unique="true"/>
+                <constraints primaryKey="true" unique="true"/>
             </column>
             <column name="name" type="text"/>
             <column name="email" type="text"/>
             <column name="locked" type="boolean" defaultValue="false"/>
             <column name="balance" type="numeric"/>
         </createTable>
-    </changeSet>
-    <changeSet id="2021-04-23" author="Sander">
-        <dropColumn tableName="customers" columnName="id"/>
     </changeSet>
 </databaseChangeLog>
 <!--        <createTable tableName="book">-->
