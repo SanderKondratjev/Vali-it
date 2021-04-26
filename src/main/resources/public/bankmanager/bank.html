@@ -6,82 +6,189 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<!--<script>-->
-<!--    alert('Hello, world!');-->
-<!--</script>-->
 <h1> BankManager Pank</h1>
 <p> Tule ava konto ja tee ülekandeid.</p>
 <h2> Ava konto</h2>
 <table>
     <tr>
-        <th>Nimi</th>
-        <td><input></td>
+        <th>Konto nr</th>
+        <td><input id="accountNr"></td>
     </tr>
     <tr>
-        <th>Konto Number</th>
-        <td><input></td>
+        <th>Nimi</th>
+        <td><input id="name"></td>
     </tr>
     <tr>
         <th>E-mail</th>
-        <td><input></td>
+        <td><input id="email"></td>
     </tr>
 </table>
-<button type="button">Loo konto</button>
+<button id="createAccountButton">Loo konto</button>
+<script>
+    let accountNumber = document.getElementById("accountNr");
+    let name = document.getElementById("name");
+    let email = document.getElementById("email");
+    let createButton = document.getElementById("createAccountButton");
+
+    createButton.onclick = function () {
+        let requestObject = {
+            'accountNr': accountNumber.value,
+            'name':name.value,
+            'email':email.value,
+            'balance': 0
+        }
+        let url = "http://localhost:8080/banksql/1";
+        let configuration = {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(requestObject)
+        }
+        fetch(url, configuration);
+    }
+
+</script>
 <h2> Vaata konto seisu</h2>
 <table>
     <tr>
-        <th>Konto Number</th>
-        <td><input></td>
+        <th>Konto nr</th>
+        <td><input id="accountNr2"></td>
     </tr>
 </table>
-<button type="button">Vaata seisu</button>
+<button id="getBalanceButton">Saldoseis</button>
+<p>
+    <span id="saldoVastus"></span>
+</p>
+<script>
+    let accountNumber2 = document.getElementById("accountNr2");
+    let getBalanceButton = document.getElementById("getBalanceButton");
+    let saldoVastus = document.getElementById("saldoVastus");
+    getBalanceButton.onclick = function () {
+        fetch("http://localhost:8080/banksql/2/" + accountNumber2.value)
+            .then(response => response.text()).then(text => {
+                saldoVastus.innerText=text
+        })
+    }
+</script>
 <h2> Lae raha</h2>
 <table>
     <tr>
-        <th>Sisesta summa mida soovid kontole kanda</th>
-        <td><input></td>
+        <th>Konto nr</th>
+        <td><input id="accountNr3"></td>
+    </tr>
+    <tr>
+        <th>Summa</th>
+        <td><input id="summa"></td>
     </tr>
 </table>
-<button type="button">Lae</button>
+<button id="getDepositButton">Lae raha</button>
+<p>
+    <span id="laeVastus"></span>
+</p>
+<script>
+    let accountNumber3 = document.getElementById("accountNr3");
+    let laeSumma = document.getElementById("summa");
+    let getDepositButton = document.getElementById("getDepositButton");
+    let laeVastus = document.getElementById("laeVastus");
+    getDepositButton.onclick = function () {
+        let requestObject = {
+            'accountNr': accountNumber3.value,
+            'balance':laeSumma.value
+        }
+        let url = "http://localhost:8080/banksql/3/";
+        let configuration = {
+            method: 'PUT',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(requestObject)
+        }
+        fetch(url + accountNumber3.value, configuration)
+        laeVastus.innerText = "Kontole: " + accountNumber3.value + " on kantud " + laeSumma.value + " eurot.";
+    }
+</script>
 <h2> Võta raha</h2>
 <table>
     <tr>
-        <th>Sisesta summa mida soovid kontolt võtta</th>
-        <td><input></td>
+        <th>Konto nr</th>
+        <td><input id="accountNr4"></td>
+    </tr>
+    <tr>
+        <th>Summa</th>
+        <td><input id="summa2"></td>
     </tr>
 </table>
-<button type="button">Võta</button>
+<button id="getWithdrawButton">Võta raha</button>
+<p>
+    <span id="mahaVastus"></span>
+</p>
+<script>
+    let accountNumber4 = document.getElementById("accountNr4");
+    let mahaSumma = document.getElementById("summa2");
+    let getWithDrawButton = document.getElementById("getWithdrawButton");
+    let mahaVastus = document.getElementById("mahaVastus");
+    getWithDrawButton.onclick = function () {
+        let requestObject = {
+            'accountNr': accountNumber4.value,
+            'balance':mahaSumma.value
+        }
+        let url = "http://localhost:8080/banksql/4/";
+        let configuration = {
+            method: 'PUT',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(requestObject)
+        }
+        fetch(url + accountNumber4.value, configuration)
+        mahaVastus.innerText = "Kontolt: " + accountNumber4.value + " on võetud " + mahaSumma.value + " eurot.";
+    }
+</script>
 <h2> Kontode vaheline kanne</h2>
 <table>
     <tr>
-        <th>Sisesta konto kust soovid raha võtta</th>
-        <td><input></td>
+        <th>Konto nr, kust soovid raha kanda</th>
+        <td><input id="accountNr5"></td>
     </tr>
     <tr>
-        <th>Sisesta konto kuhu soovid raha kanda</th>
-        <td><input></td>
+        <th>Konto nr, kuhu soovid raha kanda</th>
+        <td><input id="accountNr6"></td>
     </tr>
     <tr>
-        <th>Sisesta summa mida soovid ühelt kontolt teisele kanda</th>
-        <td><input></td>
+        <th>Summa</th>
+        <td><input id="summa3"></td>
     </tr>
 </table>
-<button type="button">Kanna</button>
-<h2> Konto lukustamine</h2>
-<table>
-    <tr>
-        <th>Sisesta konto mida soovid lukustada</th>
-        <td><input></td>
-    </tr>
-</table>
-<button type="button">Lukusta</button>
-<h2> Konto vabastamine</h2>
-<table>
-    <tr>
-        <th>Sisesta konto mida soovid vabastada</th>
-        <td><input></td>
-    </tr>
-</table>
-<button type="button">Vabasta</button>
+<button id="getTransfer">Tee kanne</button>
+<p>
+    <span id="kanneVastus"></span>
+</p>
+<script>
+    let accountNumber5 = document.getElementById("accountNr5");
+    let accountNumber6 = document.getElementById("accountNr6");
+    let kanneSumma = document.getElementById("summa3");
+    let getTransfer = document.getElementById("getTransfer");
+    let kanneVastus = document.getElementById("kanneVastus");
+    getTransfer.onclick = function () {
+        let requestObject = {
+            'accountNr': accountNumber5.value,
+            'accountNr2':accountNumber6.value,
+            'balance':kanneSumma.value
+        }
+        let url = "http://localhost:8080/banksql/5/";
+        let configuration = {
+            method: 'PUT',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(requestObject)
+        }
+        fetch(url + accountNumber5.value + "/" + accountNumber6.value, configuration)
+        kanneVastus.innerText = "Kontolt: " + accountNumber5.value
+            + " on võetud " + kanneSumma.value + " eurot ja kantud kontole "
+            + accountNumber6.value;
+    }
+</script>
 </body>
 </html>

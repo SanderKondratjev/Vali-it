@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 
-
+@CrossOrigin
 @RestController
 public class BankManagerSQL {
 
@@ -35,12 +35,10 @@ public class BankManagerSQL {
                 "lesson5/6/MISKONTONR Lukusta\n" +
                 "lesson5/7/MISKONTONR Vabasta\n";
     }
-
     @PostMapping("banksql/1") // 1. Loo konto
     public void looKonto(@RequestBody BankManagerClass request) {
         bankManagerService.looKonto(request);
     }
-
     @GetMapping("banksql/2/{accountNr}") //2. Konto saldo
     public String saldo(@PathVariable("accountNr") String accountNr) {
         return bankManagerService.saldo(accountNr);
