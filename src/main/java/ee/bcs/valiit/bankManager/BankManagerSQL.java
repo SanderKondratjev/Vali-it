@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @CrossOrigin
@@ -78,5 +79,11 @@ public class BankManagerSQL {
         Map<String, Object> paraMap = new HashMap<>();
         paraMap.put("dbAccountNr", accountNr);
         jdbcTemplate.update(kontoLahti, paraMap);
+    }
+
+    @GetMapping("banksql/8")
+    public List<BankManagerClass> getAllKontod() {
+        String sql = "SELECT * FROM customers";
+        return jdbcTemplate.query(sql, new HashMap(), new BankMangerClassRowMapper());
     }
 }
