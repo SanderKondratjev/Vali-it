@@ -1,4 +1,4 @@
-package ee.bcs.valiit.controller;
+package ee.bcs.valiit.akontrollprojekt;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -7,21 +7,19 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Random;
 
 @RestController
-public class ControllerL3H {
-    static Random random = new Random();
-    static int i = random.nextInt(100);
-    int arvatudNumbreid = 0;
+public class KontrollToo {
+//    String question = "Kas java on javascript";
+//    String x = "";
+    int punkte = 0;
+    String vastus = "ei";
 
-    @GetMapping("lesson3hard/{x}")
-    public String lesson3hard(@PathVariable("x") int x) {
-        if (i < x) {
-            arvatudNumbreid++;
-            return "Arv on väiksem kui sinu arv: " + x;
-        } else if (i > x) {
-            arvatudNumbreid++;
-            return "Arv on suurem kui sinu arv: " + x;
+    @GetMapping("kontrolltestimiseks/{x}")
+    public String lesson3hard(@PathVariable("x") String x) {
+        if (vastus.equalsIgnoreCase(x)) {
+            punkte++;
+            return "Õige vastus. Kokku on sul punkte " + punkte;
         } else {
-            return "Õige! Sa arvasid " + arvatudNumbreid + " korda";
+            return "Vale vastus. Kokku on sul punkte " + punkte;
         }
     }
 }
