@@ -1,9 +1,13 @@
 package ee.bcs.valiit.bankManager;
 
+import io.jsonwebtoken.JwtBuilder;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +26,10 @@ public class BankManagerSQL {
 
     public static void main(String[] args) {
 
+    }
+    @PostMapping("banksql/login")
+    public String login(@RequestBody LoginRequestClass request) {
+        return bankManagerService.password2(request);
     }
 
     @GetMapping("banksql")

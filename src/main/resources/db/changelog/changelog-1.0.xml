@@ -15,6 +15,14 @@
             <column name="balance" type="numeric"/>
         </createTable>
     </changeSet>
+    <changeSet id="2020-04-29 users" author="Sander">
+        <createTable tableName="users">
+            <column name="username" type="text">
+                <constraints primaryKey="true" unique="true"/>
+            </column>
+            <column name="password" type="text"/>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>
 <!--        <createTable tableName="book">-->
 <!--            <column name="id" type="int" autoIncrement="true">-->

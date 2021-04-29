@@ -38,5 +38,11 @@ public class BankAccountRepository {
         paraMap.put("dbAccountNr", accountNr);
         jdbcTemplate.update(sql, paraMap);
     }
+    public String getPassword(String username) {
+        String sql = "SELECT password FROM users WHERE username = :dbUserName";
+        Map<String, String> paraMap = new HashMap<>();
+        paraMap.put("dbUserName", username);
+        return jdbcTemplate.queryForObject(sql, paraMap, String.class);
+    }
 }
 
