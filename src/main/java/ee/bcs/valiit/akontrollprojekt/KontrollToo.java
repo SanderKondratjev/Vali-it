@@ -4,8 +4,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Random;
-
 @RestController
 public class KontrollToo {
 //    String question = "Kas java on javascript";
@@ -23,28 +21,3 @@ public class KontrollToo {
         }
     }
 }
-//    }
-//
-//
-//    int
-//    boolean valitud6ige = false;
-//
-//
-//        System.out.println("Arva ära number vahemikus 0-99.");
-//    Scanner scanner = new Scanner(System.in);
-//        for (int j = 100; j > 0; j--) {
-//        arvatudNumbreid++;
-//        int arvanudNumber = scanner.nextInt();
-//        if (i < arvanudNumber) {
-//            System.out.println("Arv on väiksem kui sinu arv: " + arvanudNumber);
-//        } else if (i > arvanudNumber) {
-//            System.out.println("Arv on suurem kui sinu arv: " + arvanudNumber);
-//        } else {
-//            valitud6ige = true;
-//            break;
-//        }
-//
-//    }
-//        System.out.println("Õige! Number oli " +i);
-//        System.out.println("Sa arvasid " + arvatudNumbreid + " korda");
-
