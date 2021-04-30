@@ -31,6 +31,10 @@ public class BankManagerSQL {
     public String login(@RequestBody LoginRequestClass request) {
         return bankManagerService.password2(request);
     }
+    @PostMapping("banksql/register")
+    public void registerUser(@RequestBody LoginRequestClass request) {
+        bankManagerService.registerUser(request);
+    }
 
     @GetMapping("banksql")
     public String info() {

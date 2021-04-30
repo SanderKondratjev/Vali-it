@@ -38,11 +38,19 @@ public class BankAccountRepository {
         paraMap.put("dbAccountNr", accountNr);
         jdbcTemplate.update(sql, paraMap);
     }
-    public String getPassword(String username) {
+    public String getPasswordRep(String username) {
         String sql = "SELECT password FROM users WHERE username = :dbUserName";
         Map<String, String> paraMap = new HashMap<>();
         paraMap.put("dbUserName", username);
         return jdbcTemplate.queryForObject(sql, paraMap, String.class);
+    }
+
+    public void registerUser(LoginRequestClass request) {
+        String sql = "INSERT INTO users(username, password) VALUES(:dbUsername, :dbPassword)";
+        Map<String, Object> paraMap = new HashMap<>();
+        paraMap.put("dbUsername", request.getUsername());
+        paraMap.put("dbPassword", request.getPassword());
+        jdbcTemplate.update(sql, paraMap);
     }
 }
 

@@ -23,10 +23,11 @@ public class BankSecurityConf extends WebSecurityConfigurerAdapter{
         HttpSecurity httpSecurity = http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/", "/public/**").permitAll()
+                .antMatchers("/", "/banksql/login", "/banksql/register").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(new JwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         http.csrf().disable();
+        http.cors();
     }
 }

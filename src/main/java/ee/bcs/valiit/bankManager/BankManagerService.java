@@ -5,6 +5,7 @@ import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -17,26 +18,33 @@ public class BankManagerService {
     private TableRepository tableRepository;
     @Autowired
     private BankAccountRepository bankAccountRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public void looKonto(BankManagerClass request) {
-
         bankAccountRepository.looKonto(request);
+    }
+    public void registerUser(LoginRequestClass request) {
+        String encodedPassword = passwordEncoder.encode(request.getPassword());
+        request.setPassword(encodedPassword);
+        bankAccountRepository.registerUser(request);
     }
 
     public String password2(LoginRequestClass body) {
-//        if (bankAccountRepository.getUser(body.getUsername()) != null &&
-//                bankAccountRepository.getPassword(body.getUsername()).equals(body.getPassword())) {
+        String passwordServ = bankAccountRepository.getPasswordRep(body.getUsername());
+//        if (body.getPassword().equals(passwordServ)) {
+          if (passwordEncoder.matches(body.getPassword(), passwordServ)) {
             Date today = new Date();
             Date tokenExpirationDate = new Date(today.getTime() + 1000 * 60 * 60 * 24);
             JwtBuilder jwtBuilder = Jwts.builder()
                     .setExpiration(tokenExpirationDate)
                     .setIssuedAt(new Date())
                     .signWith(SignatureAlgorithm.HS256, "c2VjcmV0")
-                    .claim("username", body.getUsername());
+                    .claim("username", body.getPassword());
             return jwtBuilder.compact();
-//        } else {
-//            return "Proovi uuesti";
-//        }
+        } else {
+            return "Proovi uuesti";
+        }
 
     }
 
